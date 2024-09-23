@@ -21,13 +21,13 @@ export default class App extends Component {
   state = {
     todoData: [
       {
-        id: "1",
-        title: "공부하기",
+        id: 1,
+        title: "HTML",
         completed: true,
       },
       {
-        id: "2",
-        title: "청소하기",
+        id: 2,
+        title: "CSS",
         completed: false,
       },
     ],
@@ -38,6 +38,22 @@ export default class App extends Component {
     let newTodoData = this.state.todoData.filter((data) => data.id !== id);
     this.setState({ todoData: newTodoData });
   };
+
+  handleChange = (e) => {
+    this.setState({ value: e.target.value });
+  };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    let newTodo = {
+      id: Date.now(),
+      title: this.state.value,
+      completed: false,
+    };
+    this.setState({ todoData: [...this.state.todoData, newTodo], value: "" });
+  };
+
   render() {
     return (
       <div className="container">
@@ -47,24 +63,24 @@ export default class App extends Component {
           </div>
           {this.state.todoData.map((data) => (
             <div style={this.getStyle()} key={data.id}>
-              <p>
-                <input type="checkbox" defaultChecked={false} /> {data.title}
-                <button
-                  style={this.btnStyle}
-                  onClick={() => this.handleClick(data.id)}
-                >
-                  x
-                </button>
-              </p>
+              <input type="checkbox" defaultChecked={false} />
+              {data.title}
+              <button
+                style={this.btnStyle}
+                onClick={() => this.handleClick(data.id)}
+              >
+                x
+              </button>
             </div>
           ))}
-          <form style={{ display: "flex" }}>
+          <form style={{ display: "flex" }} onSubmit={this.handleSubmit}>
             <input
               type="text"
               name="value"
               style={{ flex: "10", padding: "5px" }}
               placeholder="해야 할 일을 입력하세요."
-              value=""
+              value={this.state.value}
+              onChange={this.handleChange}
             />
             <input
               type="submit"
