@@ -1,30 +1,10 @@
 import { useState } from "react";
+import "./App.css";
+import List from "./components/List";
 
 export default function App() {
-  const btnStyle = {
-    color: "#fff",
-    border: "none",
-    padding: "5px 9px",
-    borderRadius: "50px",
-    cursor: "pointer",
-    float: "right",
-  };
-
-  const getStyle = (completed) => {
-    return {
-      padding: "10px",
-      borderBottom: "1px #ccc dotted",
-      textDecoration: completed ? "line-through" : "none",
-    };
-  };
-
-  const [todoData, setTodoData] = (useState = []);
+  const [todoData, setTodoData] = useState([]);
   const [value, setValue] = useState("");
-
-  const handleClick = (id) => {
-    let newTodoData = todoData.filter((data) => data.id !== id);
-    setTodoData(newTodoData);
-  };
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -39,16 +19,7 @@ export default function App() {
       completed: false,
     };
     setTodoData((prev) => [...prev, newTodo]);
-  };
-
-  const handleCompletedChange = (id) => {
-    let newTodoData = todoData.map((data) => {
-      if (data.id === id) {
-        data.completed = !data.completed;
-      }
-      return data;
-    });
-    setTodoData(newTodoData);
+    setValue("");
   };
 
   return (
@@ -57,19 +28,9 @@ export default function App() {
         <div className="title">
           <h1>할 일 목록</h1>
         </div>
-        {todoData.map((data) => (
-          <div style={getStyle(data.completed)} key={data.id}>
-            <input
-              type="checkbox"
-              onChange={() => handleCompletedChange(data.id)}
-              defaultChecked={false}
-            />
-            {data.title}
-            <button style={btnStyle} onClick={() => handleClick(data.id)}>
-              x
-            </button>
-          </div>
-        ))}
+
+        <List todoData={todoData} setTodoData={setTodoData} />
+
         <form style={{ display: "flex" }} onSubmit={handleSubmit}>
           <input
             type="text"
