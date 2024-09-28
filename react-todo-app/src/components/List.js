@@ -21,9 +21,9 @@ export default function List({ todoData, setTodoData }) {
 
     const newTodoData = [...todoData];
 
-    const [reoderedItem] = newTodoData.splice(result.source.index, 1);
+    const [reorderedItem] = newTodoData.splice(result.source.index, 1);
 
-    newTodoData.splice(result.destination.index, 0, reoderedItem);
+    newTodoData.splice(result.destination.index, 0, reorderedItem);
     setTodoData(newTodoData);
   };
 
