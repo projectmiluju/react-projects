@@ -2,7 +2,7 @@ import React from "react";
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import List from "./List";
 
-const Lists = React.memo(({ todoData, setTodoData }) => {
+const Lists = React.memo(({ todoData, setTodoData, handleClick }) => {
   const handleEnd = (result) => {
     if (!result.destination) return;
 
@@ -35,6 +35,7 @@ const Lists = React.memo(({ todoData, setTodoData }) => {
                     setTodoData={setTodoData}
                     provided={provided}
                     snapshot={snapshot}
+                    handleClick={handleClick}
                   />
                 )}
               </Draggable>
