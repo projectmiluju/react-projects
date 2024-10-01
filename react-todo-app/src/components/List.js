@@ -24,40 +24,44 @@ const List = React.memo(
       setTodoData(newTodoData);
     };
 
-    return (
-      <div
-        key={id}
-        {...provided.draggableProps}
-        ref={provided.innerRef}
-        {...provided.dragHandleProps}
-        className={`${
-          snapshot.isDragging ? "bg-gray-400" : "bg-gray-100"
-        } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 border rounded`}
-      >
-        <div className="items-center">
-          <input
-            type="checkbox"
-            onChange={() => handleCompletedChange(id)}
-            defaultChecked={completed}
-          />{" "}
-          <span className={completed && "line-through"}>{title}</span>
+    if (isEditing) {
+      return <div>editing...</div>;
+    } else {
+      return (
+        <div
+          key={id}
+          {...provided.draggableProps}
+          ref={provided.innerRef}
+          {...provided.dragHandleProps}
+          className={`${
+            snapshot.isDragging ? "bg-gray-400" : "bg-gray-100"
+          } flex items-center justify-between w-full px-4 py-1 my-2 text-gray-600 border rounded`}
+        >
+          <div className="items-center">
+            <input
+              type="checkbox"
+              onChange={() => handleCompletedChange(id)}
+              defaultChecked={completed}
+            />{" "}
+            <span className={completed && "line-through"}>{title}</span>
+          </div>
+          <div className="items-center">
+            <button
+              className="float-right px-4 py-2"
+              onClick={() => handleClick(id)}
+            >
+              x
+            </button>
+            <button
+              className="float-right px-4 py-2"
+              onClick={() => setIsEditing(true)}
+            >
+              edit
+            </button>
+          </div>
         </div>
-        <div className="items-center">
-          <button
-            className="float-right px-4 py-2"
-            onClick={() => handleClick(id)}
-          >
-            x
-          </button>
-          <button
-            className="float-right px-4 py-2"
-            onClick={() => setIsEditing(true)}
-          >
-            edit
-          </button>
-        </div>
-      </div>
-    );
+      );
+    }
   }
 );
 
