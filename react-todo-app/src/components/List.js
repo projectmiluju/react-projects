@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const List = React.memo(
   ({
@@ -11,6 +11,9 @@ const List = React.memo(
     snapshot,
     handleClick,
   }) => {
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingTitle, setEditingTitle] = useState(title);
+
     const handleCompletedChange = (id) => {
       let newTodoData = todoData.map((data) => {
         if (data.id === id) {
@@ -40,7 +43,18 @@ const List = React.memo(
           <span className={completed && "line-through"}>{title}</span>
         </div>
         <div className="items-center">
-          <button onClick={() => handleClick(id)}>x</button>
+          <button
+            className="float-right px-4 py-2"
+            onClick={() => handleClick(id)}
+          >
+            x
+          </button>
+          <button
+            className="float-right px-4 py-2"
+            onClick={() => setIsEditing(true)}
+          >
+            edit
+          </button>
         </div>
       </div>
     );
