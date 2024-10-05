@@ -48,7 +48,7 @@ export default function Banner() {
           <h1 className="banner__title">
             {movie?.title || movie?.name || movie?.original_name}
           </h1>
-          <div className="banner_buttons">
+          <div className="banner__buttons">
             <button
               className="banner__button play"
               onClick={() => setIsClicked(true)}
