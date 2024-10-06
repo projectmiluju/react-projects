@@ -20,7 +20,7 @@ export default function Footer() {
             <FooterLink href="https://help.netflix.com/legal/termsofuse">
               이용약관
             </FooterLink>
-            {/* <FooterLink href="https://help.netflix.com/legal/privacy">
+            <FooterLink href="https://help.netflix.com/legal/privacy">
               개인정보
             </FooterLink>
             <FooterLink href="https://help.netflix.com/legal/corpinfo">
@@ -31,7 +31,7 @@ export default function Footer() {
             </FooterLink>
             <FooterLink href="https://help.netflix.com/legal/notices">
               법적 고지
-            </FooterLink> */}
+            </FooterLink>
           </FooterLinkContent>
         </FooterLinkContainer>
         <FooterDescContainer>
@@ -46,13 +46,13 @@ const FooterContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 0px;
+  padding: 40px 0;
   border-top: 1px solid rgb(25, 25, 25);
   width: 100%;
   position: relative;
   z-index: 100;
 
-  @media (min-width: 768px) {
+  @media (max-width: 769px) {
     padding: 20px 20px;
     padding-bottom: 30px;
   }
@@ -63,7 +63,7 @@ const FooterContent = styled.div``;
 const FooterLinkContainer = styled.div`
   width: 500px;
 
-  @media (min-width: 768px) {
+  @media (max-width: 768px) {
     width: 100%;
   }
 `;
@@ -96,14 +96,12 @@ const FooterLink = styled.a`
   }
 
   @media (max-width: 768px) {
-    font-size: 14px;
     margin-bottom: 16px;
   }
 `;
 
 const FooterDescContainer = styled.div`
-  margin-top: 30px;
-  @media (max-width: 768px) {
+  margin-top: 30px @media (max-width: 768px) {
     margin-top: 20px;
   }
 `;
