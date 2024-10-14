@@ -3,27 +3,36 @@ import axios from "../api/axios";
 import requests from "../api/requests";
 import "./Banner.css";
 import styled from "styled-components";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 export default function Banner() {
   const [movie, setMovie] = useState([]);
   const [isClicked, setIsClicked] = useState(false);
+  const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const request = await axios.get(requests.fetchNowPlaying);
+    try {
+      const request = await axios.get(requests.fetchNowPlaying);
+      const movieId =
+        request.data.results[
+          Math.floor(Math.random() * request.data.results.length)
+        ].id;
 
-    const movieId =
-      request.data.results[
-        Math.floor(Math.random() * request.data.results.length)
-      ].id;
-
-    const { data: movieDetail } = await axios.get(`movie/${movieId}`, {
-      params: { append_to_response: "videos" },
-    });
-    setMovie(movieDetail);
+      const { data: movieDetail } = await axios.get(`movie/${movieId}`, {
+        params: { append_to_response: "videos" },
+      });
+      setMovie(movieDetail);
+    } catch (error) {
+      setError("영화 정보를 불러오는 데 실패했습니다. 다시 시도해주세요.");
+      setIsModalOpen(true);
+    }
   };
 
   const truncate = (string, number) => {
@@ -92,9 +101,16 @@ export default function Banner() {
               allowfullscreen
             ></Iframe>
           ) : (
-            <div className="no-video-message">
-              No video available for this movie.
-            </div>
+            <Modal
+              isOpen={true}
+              onRequestClose={() => setIsModalOpen(false)}
+              contentLabel="No Video Modal"
+            >
+              <ModalContent>
+                <h2>해당 영상은 사용할 수 없습니다.</h2>
+                <button onClick={() => setIsModalOpen(false)}>Close</button>
+              </ModalContent>
+            </Modal>
           )}
         </HomeContainer>
       </Container>
@@ -131,4 +147,11 @@ const Container = styled.div`
 const HomeContainer = styled.div`
   width: 100%;
   height: 100%;
+`;
+
+const ModalContent = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
 `;
