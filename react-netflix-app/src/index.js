@@ -7,10 +7,6 @@ import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-<<<<<<< HEAD
-=======
-  // <BrowserRouter basename="react-projects/react-netflix-app">
->>>>>>> b2ff0c5fab47754fb04218a766fedb81b7364102
   <BrowserRouter>
     <App />
   </BrowserRouter>,
