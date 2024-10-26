@@ -12,7 +12,7 @@ const List = React.memo(
     handleClick,
   }) => {
     const [isEditing, setIsEditing] = useState(false);
-    const [editingTitle, setEditingTitle] = useState(title);
+    const [editedTitle, setEditedTitle] = useState(title);
 
     const handleCompletedChange = (id) => {
       let newTodoData = todoData.map((data) => {
@@ -24,8 +24,53 @@ const List = React.memo(
       setTodoData(newTodoData);
     };
 
+    const handleEditChange = (event) => {
+      setEditedTitle(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+      event.preventDefault();
+
+      let newTodoData = todoData.map((data) => {
+        if (data.id === id) {
+          data.title = editedTitle;
+        }
+        return data;
+      });
+      setTodoData(newTodoData);
+      setIsEditing(false);
+    };
+
     if (isEditing) {
-      return <div>editing...</div>;
+      return (
+        <div className="flex items-center justify-between w-full px-4 py-1 my-2  bg-gray-100 text-gray-600 border rounded">
+          <div className="items-center">
+            <form onSubmit={handleSubmit}>
+              <input
+                value={editedTitle}
+                className="w-full px-3 py-2 mr-4 text-gray-500 rounded"
+                onChange={handleEditChange}
+                autoFocus
+              />
+            </form>
+          </div>
+          <div className="items-center">
+            <button
+              className="float-right px-4 py-2"
+              onClick={() => setIsEditing(false)}
+            >
+              x
+            </button>
+            <button
+              onClick={handleSubmit}
+              className="float-right px-4 py-2"
+              type="submit"
+            >
+              save
+            </button>
+          </div>
+        </div>
+      );
     } else {
       return (
         <div
