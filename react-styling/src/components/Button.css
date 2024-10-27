@@ -1,0 +1,13 @@
+.btn-css {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-css:hover {
+    background-color: #2980b9;
+}
