@@ -1,5 +1,6 @@
 import ButtonCss from "./components/ButtonCss.jsx";
 import ButtonStyled from "./components/ButtonStyled.jsx";
+import ButtonEmotion from "./components/ButtonEmotion.jsx";
 
 
 function App() {
@@ -9,6 +10,8 @@ function App() {
             <ButtonCss/>
             <br/><br/>
             <ButtonStyled/>
+            <br /><br />
+            <ButtonEmotion />
         </div>
     );
 }
