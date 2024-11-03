@@ -11,3 +11,4 @@ test("checkbox and button", () => {
   const confirmButton = screen.getByRole("button", { name: "주문 확인" });
   expect(confirmButton.disabled).toBeTruthy();
 });
+
