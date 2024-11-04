@@ -1,4 +1,4 @@
-import { render,screen } from '@testing-library/react';
+import { render, screen } from "../../../test-utils";
 import userEvent from "@testing-library/user-event";
 import Type from "../Type";
 import OrderPage from "../OrderPage";
