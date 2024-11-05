@@ -9,6 +9,7 @@ function Type({ orderType }) {
     const [items, setItems] = useState([]);
     const [error, setError] = useState(false);
     const [orderDatas, updateItemCount] = useContext(OrderContext);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         loadItems(orderType);
@@ -16,7 +17,7 @@ function Type({ orderType }) {
 
     const loadItems = async (orderType) => {
         try {
-            let response = await axios.get(`http://localhost:5000/${orderType}`);
+            const response = await axios.get(`http://localhost:5000/${orderType}`);
             setItems(response.data);
         } catch (error) {
             setError(true);
@@ -29,7 +30,11 @@ function Type({ orderType }) {
 
     const ItemComponents = orderType === "products" ? Products : Options;
 
-    const optionItems = items.map((item) => (
+    const filteredItems = items.filter(item =>
+        item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    const optionItems = filteredItems.map((item) => (
         <ItemComponents
             key={item.name}
             name={item.name}
@@ -48,6 +53,18 @@ function Type({ orderType }) {
             <p>
                 {orderTypeKorean} 총 가격: {orderDatas.totals[orderType]}
             </p>
+
+            {orderType === "products" && (
+                <input
+                    type="text"
+                    placeholder="상품 검색"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    data-testid="search-input"
+                    style={{ marginBottom: "12px", padding: "4px" }}
+                />
+            )}
+
             <div
                 style={{
                     display: "flex",

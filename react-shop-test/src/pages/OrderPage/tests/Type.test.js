@@ -1,5 +1,6 @@
 import { render, screen } from "../../../test-utils";
 import { server } from "../../../mocks/server";
+import userEvent from "@testing-library/user-event";
 import Type from "../Type";
 import { rest } from "msw";
 
@@ -36,4 +37,21 @@ test("when fetching product datas, face an error", async () => {
 
   const errorBanner = await screen.findByTestId("error-banner");
   expect(errorBanner).toHaveTextContent("에러가 발생했습니다.")
+});
+
+test("search filter displays only matching product", async () => {
+  render(<Type orderType="products" />);
+
+  const searchInput = screen.getByTestId("search-input");
+
+  // 검색어 입력: 'ame'
+  userEvent.type(searchInput, "ame");
+
+  // America만 보이는지 확인
+  const productImages = await screen.findAllByRole("img", {
+    name: /product$/i,
+  });
+
+  expect(productImages).toHaveLength(1);
+  expect(productImages[0]).toHaveAttribute("alt", "America product");
 });
