@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/github.io/react-projects/react-netflix-app/static/css/main.3e971813.css",
+    "main.js": "/github.io/react-projects/react-netflix-app/static/js/main.28ed53e2.js",
+    "static/js/453.5af2b189.chunk.js": "/github.io/react-projects/react-netflix-app/static/js/453.5af2b189.chunk.js",
+    "index.html": "/github.io/react-projects/react-netflix-app/index.html",
+    "main.3e971813.css.map": "/github.io/react-projects/react-netflix-app/static/css/main.3e971813.css.map",
+    "main.28ed53e2.js.map": "/github.io/react-projects/react-netflix-app/static/js/main.28ed53e2.js.map",
+    "453.5af2b189.chunk.js.map": "/github.io/react-projects/react-netflix-app/static/js/453.5af2b189.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3e971813.css",
+    "static/js/main.28ed53e2.js"
+  ]
+}
