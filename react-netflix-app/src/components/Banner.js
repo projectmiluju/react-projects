@@ -33,6 +33,12 @@ export default function Banner() {
   };
 
   console.log("movie:", movie);
+
+  // 영상이 없을 경우 에러 처리
+  const videoUrl = movie?.videos?.results?.length
+    ? `https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`
+    : null;
+
   if (!isClicked) {
     return (
       <header
@@ -71,19 +77,25 @@ export default function Banner() {
     return (
       <Container>
         <HomeContainer>
-          <Iframe
-            src={
-              // "https://youtube.com/embed/AHP_Ta8yvJ8"
-              `https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`
-            }
-            width="640"
-            height="360"
-            title="YouTube video player"
-            // frameBorder="0"
-            style={{ border: "none" }}
-            allow="autoplay; fullscreen"
-            allowfullscreen
-          ></Iframe>
+          {videoUrl ? (
+            <Iframe
+              src={
+                // "https://youtube.com/embed/AHP_Ta8yvJ8"
+                `https://www.youtube.com/embed/${movie.videos.results[0].key}?controls=0&autoplay=1&loop=1&mute=1&playlist=${movie.videos.results[0].key}`
+              }
+              width="640"
+              height="360"
+              title="YouTube video player"
+              // frameBorder="0"
+              style={{ border: "none" }}
+              allow="autoplay; fullscreen"
+              allowfullscreen
+            ></Iframe>
+          ) : (
+            <div className="no-video-message">
+              No video available for this movie.
+            </div>
+          )}
         </HomeContainer>
       </Container>
     );
